@@ -11,7 +11,6 @@ def token_obrigatorio(f):
 
         if 'x-access-token' in request.headers:
             token = request.headers['x-access-token']
-
         if not token:
             return jsonify({'mensagem': 'Token não foi incluído!'}), 401
 

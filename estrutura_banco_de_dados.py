@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'FSD2323F#$!SAH'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blug.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres.njbhglojmfiwqndfhzie:homemaranha2003@aws-0-sa-east-1.pooler.supabase.com:5432/postgres'
 
 db = SQLAlchemy(app)
 db: SQLAlchemy
@@ -26,11 +26,15 @@ class Autor(db.Model):
     postagens = db.relationship('Postagem') 
 
 
-with app.app_context():
-    db.drop_all()
-    db.create_all()
-    autor = Autor(nome='Allan', email='allanaugusto2077@gmail.com', 
+def inicializador_banco():
+    with app.app_context():
+      db.drop_all()
+      db.create_all()
+      autor = Autor(nome='Allan', email='allanaugusto2077@gmail.com', 
                   senha='123456', admin=True)
-    db.session.add(autor)
-    db.session.commit()
+      db.session.add(autor)
+      db.session.commit()
 
+if __name__ =='__main__': 
+     inicializador_banco()
+     
